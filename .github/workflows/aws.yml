@@ -31,11 +31,14 @@ jobs:
         IMAGE_TAG=$(date -u +"%Y%m%dT%H%M%SZ")
         echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
 
+        TAG=$(git rev-parse --short HEAD)
+        echo "TAG=${TAG}" >> $GITHUB_ENV
+
         # Build a Docker container and push it to ECR
-        docker build -t ${{ steps.login-ecr.outputs.registry }}/${{ secrets.REPO_NAME }}:$IMAGE_TAG .
+        docker build -t ${{ steps.login-ecr.outputs.registry }}/${{ secrets.REPO_NAME }}:$TAG .
         echo "Pushing image to ECR..."
-        docker push ${{ steps.login-ecr.outputs.registry }}/${{ secrets.REPO_NAME }}:$IMAGE_TAG
-        echo "::set-output name=image::${{ steps.login-ecr.outputs.registry }}/${{ secrets.REPO_NAME }}:$IMAGE_TAG"
+        docker push ${{ steps.login-ecr.outputs.registry }}/${{ secrets.REPO_NAME }}:$TAG
+        echo "::set-output name=image::${{ steps.login-ecr.outputs.registry }}/${{ secrets.REPO_NAME }}:$TAG"
       env:
         AWS_DEFAULT_REGION: ap-northeast-2
         AWS_REGION: ap-northeast-2
