@@ -12,10 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
 
-      - name: Install amazon-ecr-credential-helper
-        run: sudo apt-get install -y amazon-ecr-credential-helper
+    - name: Install amazon-ecr-credential-helper
+      run: sudo apt-get install -y amazon-ecr-credential-helper
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
