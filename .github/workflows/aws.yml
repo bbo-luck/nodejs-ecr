@@ -9,11 +9,11 @@ name: CI on ECR
 jobs:
   deploy:
     name: Deploy
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install amazon-ecr-credential-helper
       run: sudo apt-get install -y amazon-ecr-credential-helper
@@ -22,7 +22,6 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v1
       with:
         role-to-assume: arn:aws:iam::058264293737:role/github-action-role
-        role-session-name: github-action
         aws-region: ap-northeast-2
 
     - name: Login to Amazon ECR
